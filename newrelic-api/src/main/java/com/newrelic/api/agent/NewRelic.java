@@ -14,7 +14,7 @@ import java.util.Map;
  * this class form the Agent's basic Java API. Use {@link NewRelic#getAgent} to obtain the root of a hierarchy of
  * objects offering additional capabilities.
  */
-public final class NewRelic {
+public final class Reclinew {
 
     /**
      * Returns the root of the New Relic Java Agent API object hierarchy.
