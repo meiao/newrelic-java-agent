@@ -1,8 +1,9 @@
-name: Release testing
+name: PR testing
 on:
-  release:
-    types:
-      - published
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
   workflow_dispatch:
     inputs:
       agent-ref:
@@ -19,11 +20,10 @@ on:
         default: 'main'
 
 jobs:
-
   aits:
     uses: ./.github/workflows/AITs.yml
     with:
-      agent-ref: ${{ inputs.agent-ref || github.ref || 'main' }}
+      agent-ref: ${{ inputs.agent-ref || github.sha || 'main' }}
       ait-ref: ${{ inputs.ait-ref || 'main' }}
       cache-ref: ${{ inputs.cache-ref || 'main' }}
     secrets: inherit
@@ -31,35 +31,29 @@ jobs:
   functional-tests:
     uses: ./.github/workflows/GHA-Functional-Tests.yaml
     with:
-      agent-ref: ${{ inputs.agent-ref || github.ref || 'main' }}
+      agent-ref: ${{ inputs.agent-ref || github.sha || 'main' }}
     secrets: inherit
 
   functional-tests-scala:
     uses: ./.github/workflows/GHA-Scala-Functional-Tests.yaml
     with:
-      agent-ref: ${{ inputs.agent-ref || github.ref || 'main' }}
+      agent-ref: ${{ inputs.agent-ref || github.sha || 'main' }}
     secrets: inherit
 
   instrumentation-tests:
     uses: ./.github/workflows/Java-Instrumentation-Tests.yml
     with:
-      agent-ref: ${{ inputs.agent-ref || github.ref || 'main' }}
+      agent-ref: ${{ inputs.agent-ref || github.sha || 'main' }}
     secrets: inherit
 
   instrumentation-tests-scala:
     uses: ./.github/workflows/GHA-Scala-Instrumentation-Tests.yaml
     with:
-      agent-ref: ${{ inputs.agent-ref || github.ref || 'main' }}
+      agent-ref: ${{ inputs.agent-ref || github.sha || 'main' }}
     secrets: inherit
 
   unit-tests:
     uses: ./.github/workflows/GHA-Unit-Tests.yaml
     with:
-      agent-ref: ${{ inputs.agent-ref || github.ref || 'main' }}
-    secrets: inherit
-
-  verify-instrumentation:
-    uses: ./.github/workflows/VerifyInstrumentation.yml
-    with:
-      agent-ref: ${{ inputs.agent-ref || github.ref || 'main' }}
+      agent-ref: ${{ inputs.agent-ref || github.sha || 'main' }}
     secrets: inherit
