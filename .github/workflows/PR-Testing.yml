@@ -1,4 +1,4 @@
-name: Release testing
+name: PR testing
 on:
   pull_request:
     branches: [ main ] ## branches TBD
@@ -56,12 +56,6 @@ jobs:
 
   unit-tests:
     uses: ./.github/workflows/GHA-Unit-Tests.yaml
-    with:
-      agent-ref: ${{ inputs.agent-ref || github.ref || 'main' }}
-    secrets: inherit
-
-  verify-instrumentation:
-    uses: ./.github/workflows/VerifyInstrumentation.yml
     with:
       agent-ref: ${{ inputs.agent-ref || github.ref || 'main' }}
     secrets: inherit
