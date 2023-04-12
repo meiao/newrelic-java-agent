@@ -67,7 +67,7 @@ jobs:
           cd agent-integration-tests/tests/java/functionality
           tmpfile=$(mktemp /tmp/dirs.XXXXXXXXXX)
           # list the tests
-          find . -iname "*.py" | cut -d'/' -f 2- | sort > $tmpfile
+          find . -iname "*.py" | cut -d'/' -f 2- | grep -v -x -f ../../gha_excluded_tests | sort > $tmpfile
           # creates an envar with the requested page of the instrumentation modules in a JSON format
           TESTS=$((
             echo '{ "tests" : '
