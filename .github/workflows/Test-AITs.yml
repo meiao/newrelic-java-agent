@@ -69,8 +69,10 @@ jobs:
             echo " }"
           ) | jq -c .)
           # save the output of the job
-          if [[ -z "$TESTS" ]]; then exit 1; fi
           echo "tests=$TESTS" >> $GITHUB_OUTPUT
+      - name: Check there are tests to run
+        run: if [[ -z "$TESTS" ]]; then exit 1; fi
+
 
   tests:
     name: ${{ matrix.test }}
