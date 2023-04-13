@@ -21,7 +21,7 @@ on:
 
 jobs:
   aits:
-    uses: ./.github/workflows/AITs.yml
+    uses: ./.github/workflows/Test-AITs.yml
     with:
       agent-ref: ${{ inputs.agent-ref || github.sha || 'main' }}
       ait-ref: ${{ inputs.ait-ref || 'main' }}
