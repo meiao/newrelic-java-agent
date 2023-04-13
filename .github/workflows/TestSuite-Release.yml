@@ -1,9 +1,8 @@
-name: PR testing
+name: Test Suite - Release
 on:
-  pull_request:
-    branches: [ main ]
-  push:
-    branches: [ main ]
+  release:
+    types:
+      - published
   workflow_dispatch:
     inputs:
       agent-ref:
@@ -20,6 +19,7 @@ on:
         default: 'main'
 
 jobs:
+
   aits:
     uses: ./.github/workflows/AITs.yml
     with:
@@ -54,6 +54,12 @@ jobs:
 
   unit-tests:
     uses: ./.github/workflows/GHA-Unit-Tests.yaml
+    with:
+      agent-ref: ${{ inputs.agent-ref || github.sha || 'main' }}
+    secrets: inherit
+
+  verify-instrumentation:
+    uses: ./.github/workflows/VerifyInstrumentation.yml
     with:
       agent-ref: ${{ inputs.agent-ref || github.sha || 'main' }}
     secrets: inherit

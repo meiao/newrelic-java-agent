@@ -18,7 +18,7 @@ on:
 
 jobs:
   scala-instrumentation-tests:
-    name: Scala ${{ matrix.scala }} on Java ${{ matrix.java-version }} Instrumentation Tests
+    name: Scala ${{ matrix.scala }} on Java ${{ matrix.java-version }}
     timeout-minutes: 120
     runs-on: ubuntu-20.04
     env:
