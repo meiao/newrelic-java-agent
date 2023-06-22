@@ -25,7 +25,7 @@ jobs:
     uses: ./.github/workflows/X-Reusable-BuildAgent.yml
     with:
       agent-ref: ${{ inputs.agent-ref || 'main' }}
-      gradle-cache-read-only: ${{ $github.event_name != 'schedule' }}
+      gradle-cache-read-only: ${{ github.event_name != 'schedule' }}
     secrets: inherit
 
   # GHA Matrix strategy only allows 255 entries.
